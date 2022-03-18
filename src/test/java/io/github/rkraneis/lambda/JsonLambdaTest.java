@@ -3,6 +3,7 @@ package io.github.rkraneis.lambda;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -11,7 +12,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 @QuarkusTest
-@EnabledIfEnvironmentVariable(named = "QUARKUS_LAMBDA_HANDLER", matches = "JsonLambda")
+@TestProfile(Profiles.Json.class)
 public class JsonLambdaTest {
 
     @Test

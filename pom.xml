@@ -170,49 +170,14 @@
         </configuration>
       </plugin>
       <plugin>
-        <!--
-          We need to run each quarkus lambda test in a separate execution as we need to set
-          the quarkus.lambda.handler property before quarkus tries to load. Other tests can just be
-          run in the default execution.
-          Same needs to be done for integration tests (maven-failsafe-plugin).
-        -->
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${surefire-plugin.version}</version>
-        <executions>
-          <execution>
-            <id>default-test</id>
-            <configuration>
-              <skip>${default-test.skip}</skip>
-              <excludedGroups>io.quarkus.test.junit.QuarkusTest</excludedGroups>
-            </configuration>
-          </execution>
-          <execution>
-            <id>GreetingLambda-test</id>
-            <goals>
-              <goal>test</goal>
-            </goals>
-            <phase>test</phase>
-            <configuration>
-              <skip>${GreetingLambdaTest.skip}</skip>
-              <environmentVariables>
-                <QUARKUS_LAMBDA_HANDLER>GreetingLambda</QUARKUS_LAMBDA_HANDLER>
-              </environmentVariables>
-            </configuration>
-          </execution>
-          <execution>
-            <id>JsonLambda-test</id>
-            <goals>
-              <goal>test</goal>
-            </goals>
-            <phase>test</phase>
-            <configuration>
-              <skip>${JsonLambdaTest.skip}</skip>
-              <environmentVariables>
-                <QUARKUS_LAMBDA_HANDLER>JsonLambda</QUARKUS_LAMBDA_HANDLER>
-              </environmentVariables>
-            </configuration>
-          </execution>
-        </executions>
+        <configuration>
+          <systemPropertyVariables>
+            <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+            <maven.home>${maven.home}</maven.home>
+          </systemPropertyVariables>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.jacoco</groupId>

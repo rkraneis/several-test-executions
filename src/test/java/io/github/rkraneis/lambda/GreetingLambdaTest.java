@@ -3,6 +3,7 @@ package io.github.rkraneis.lambda;
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.TestProfile;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.containsString;
@@ -11,8 +12,7 @@ import org.junit.jupiter.api.condition.EnabledIfEnvironmentVariable;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
 @QuarkusTest
-// support dev mode with tests
-@EnabledIfEnvironmentVariable(named = "QUARKUS_LAMBDA_HANDLER", matches = "GreetingLambda")
+@TestProfile(Profiles.Greeting.class)
 public class GreetingLambdaTest {
 
   @Test
